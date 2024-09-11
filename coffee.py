@@ -1,25 +1,29 @@
 class Coffee:
     def __init__(self, name):
-        if not isinstance(name, str) or len(name) < 3:
+        if isinstance(name, str) and len(name) >= 3:
+            self._name = name
+        else:
             raise ValueError("Names length must be greater or equal to 3 characters")
-        self._name = name
-        self.order_list = []
+        self._orders = []
 
     @property
     def name(self):
         return self._name
 
     def orders(self):
-        return self.order_list
+        return self._orders
 
-    def coffee(self):
-        return list(set([order.customer for order in self.order_list]))
+    def customers(self):
+        return list(set(order.customer for order in self._orders))
+
+    def add_order(self, order):
+        self._orders.append(order)
 
     def num_orders(self):
-        return len(self.order_list)
+        return len(self._orders)
 
     def average_price(self):
-        if not self.order_list:
+        if not self._orders:
             return 0
-        all_prices = sum(order.price for order in self.order_list)
-        return all_prices / len(self.order_list)
+        total_price = sum(order.price for order in self._orders)
+        return total_price / len(self._orders)

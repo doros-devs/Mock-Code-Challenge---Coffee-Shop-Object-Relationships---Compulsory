@@ -1,26 +1,31 @@
 class Customer:
-    def __init__(self,name):
-        self.name = name
-        self.orders_list =[]
+    def __init__(self, name):
+        if isinstance(name, str) and 1 <= len(name) <= 15:
+            self._name = name
+        else:
+            raise ValueError("Name must be a string between 1 and 15 characters.")
+        self._orders = []
 
     @property
     def name(self):
         return self._name
 
     @name.setter
-    def name(self, value):
-        if not isinstance(value,str) or not (1 <= len(value) <= 15):
-            raise ValueError("Names must be between 1 and 15 characters, inclusive")
-        self._name = value
+    def name(self, new_person):
+        if isinstance(new_person, str) and 1 <= len(new_person) <= 15:
+            self._name = new_person
+        else:
+            raise ValueError("Names must be between 1 and 15 character")
 
-    def order(self):
-        return self.orders_list
+    def orders(self):
+        return self._orders
 
-    def coffee(self):
-        return list(set([order.coffee for order in self.orders_list]))
+    def coffees(self):
+        return list(set(order.coffee for order in self._orders))
 
     def create_order(self, coffee, price):
-        from .order import Order
+        from order import Order
         order = Order(self, coffee, price)
-        self.orders_list.append(order)
+        self._orders.append(order)
+        coffee.add_order(order)
         return order
