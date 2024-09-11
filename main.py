@@ -52,7 +52,8 @@ def main():
                 except ValueError as e:
                     print(e)
             else:
-                print("Customer or coffee not found. Please add them first.")
+                print("No customer or coffee found. Please add them first by choosing option and adding "
+                      "a customer and option 2 to add a coffee.")
 
         elif choice == "4":
             # View customer orders
@@ -61,7 +62,7 @@ def main():
                 customer = customers[customer_name]
                 print(f"{customer_name} has ordered:")
                 for coffee in customer.coffees():
-                    print(f" {coffee.name}")
+                    print(f"A {coffee.name}")
             else:
                 print(f"No customer found with the name '{customer_name}'")
 
